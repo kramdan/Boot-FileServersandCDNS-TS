@@ -1,5 +1,7 @@
 import { randomUUID } from "crypto";
 import type { Database } from "bun:sqlite";
+import { dbVideoToSignedVideo } from "../api/videos";
+import { cfg } from "../config";
 
 export type Video = {
   id: string;
@@ -105,7 +107,6 @@ export function getVideo(db: Database, id: string): Video | undefined {
   if (!row) {
     return;
   }
-
   return {
     id: row.id,
     createdAt: new Date(row.created_at),

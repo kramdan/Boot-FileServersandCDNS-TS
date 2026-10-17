@@ -1,6 +1,6 @@
 import { type ApiConfig } from "../config";
 import { getBearerToken, validateJWT } from "../auth";
-import { createVideo, deleteVideo, getVideo, getVideos } from "../db/videos";
+import { createVideo, deleteVideo, getVideo, getVideos ,type Video} from "../db/videos";
 import { respondWithJSON } from "./json";
 import { BadRequestError, NotFoundError, UserForbiddenError } from "./errors";
 import type { BunRequest } from "bun";
@@ -51,10 +51,10 @@ export async function handlerVideoGet(cfg: ApiConfig, req: BunRequest) {
   }
 
   const video = getVideo(cfg.db, videoId);
+  
   if (!video) {
     throw new NotFoundError("Couldn't find video");
   }
-
   return respondWithJSON(200, video);
 }
 
